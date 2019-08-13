@@ -3,28 +3,43 @@
 // This class will be used to represent each part of the moving snake.
 //*
 
-class Segment {
 
 
 //Add x and y member variables. They will hold the corner location of each segment of the snake.
+
+class Segment {
+  
 int x;
 int y;
 
+int getX(){
+  return x;
+}
+  
+int getY(){
+   return y;
+}
+
+void setX(int x){
+ this.x = x;
+}
+
+void setY(int y){
+ this.y = y; 
+}
 // Add a constructor with parameters to initialize each variable.
 Segment(int x, int y){
   this.x = x;
   this.y = y;
 }
 }
-
 //*
 // ***** GAME VARIABLES *****
 // All the game variables that will be shared by the game methods are here
 //*
-  Segment segment;
+  Segment head;
   int foodX;
   int foodY;
-
 //*
 // ***** SETUP METHODS *****
 // These methods are called at the start of the game.
@@ -32,9 +47,16 @@ Segment(int x, int y){
 
 void setup() {
   size(500, 500);
-  segment = new Segment(250, 250);
+  head = new Segment(250, 250);
   frameRate(20);
   dropFood();
+}
+
+void draw() {
+  move();
+  background(0, 0, 0);
+  drawFood();
+  drawSnake();
 }
 
 void dropFood() {
@@ -50,33 +72,28 @@ void dropFood() {
 // These methods are used to draw the snake and its food 
 //*
 
-void draw() {
-  background(0, 0, 0);
-  drawFood();
-  drawSnake();
-}
-
 void drawFood() {
   //Draw the food
-  color(255, 0, 0);
+  fill(255, 0, 0);
   rect(foodX, foodY, 10, 10);
 }
 
 void drawSnake() {
   //Draw the head of the snake followed by its tail
-  color(255, 255, 0);
-  rect(x, y, 10, 10);
+  fill(255, 255, 0);
+  rect(head.getX(), head.getY(), 10, 10);
+  drawTail();
 }
 
 //*
 // ***** TAIL MANAGEMENT METHODS *****
 // These methods make sure the tail is the correct length.
 //*
-
 void drawTail() {
   //Draw each segment of the tail 
-
+  
 }
+
 
 void manageTail() {
   //After drawing the tail, add a new segment at the "start" of the tail and remove the one at the "end" 
@@ -96,21 +113,27 @@ void checkTailCollision() {
 // These methods are used to change what is happening to the snake
 //*
 
+  int direction=UP;
+  int numFoodEaten = 0;
+
 void keyPressed() {
   //Set the direction of the snake according to the arrow keys pressed
   
 }
 
 void move() {
-  //Change the location of the Snake head based on the direction it is moving.
-  
-    /*
+  if(direction==UP){
+    head.setY(head.getX()+10);
+  }else if(direction == DOWN){
+    head.setY(head.getX()+10); 
+  }
+    
   switch(direction) {
   case UP:
-    // move head up here 
+    direction = UP;
     break;
   case DOWN:
-    // move head down here 
+    direction = DOWN;
     break;
   case LEFT:
    // figure it out 
@@ -119,14 +142,13 @@ void move() {
     // mystery code goes here 
     break;
   }
-  */
+  
 }
 
 void checkBoundaries() {
  //If the snake leaves the frame, make it reappear on the other side
  
 }
-
 
 
 void eat() {
