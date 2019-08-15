@@ -131,13 +131,13 @@ void checkTailCollision() {
 
 void keyPressed() {
   //Set the direction of the snake according to the arrow keys pressed
-  if(keyCode == 38){
+  if(keyCode == 38 && direction != DOWN){
     direction = UP;
-  }else if(keyCode == 40){
+  }else if(keyCode == 40 && direction != UP){
     direction = DOWN;
-  }else if(keyCode == 37){
+  }else if(keyCode == 37 && direction != RIGHT){
     direction = LEFT; 
-  }else if(keyCode == 39){
+  }else if(keyCode == 39 && direction != LEFT){
     direction = RIGHT;
   }
 }
